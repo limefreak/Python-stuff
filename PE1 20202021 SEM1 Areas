@@ -1,0 +1,36 @@
+def calculate_areas(w_list,h_list):
+    whiteA, yellowA, redA = 0,0,0
+    lengths = [0,0,0]
+    n = len(w_list)
+    res = []
+    for i in range(n):
+        if not i%3:
+            lengths[0] += w_list[i]
+        elif i%3==1:
+            lengths[1] += w_list[i]
+        else:
+            lengths[2] += w_list[i]
+    for j in range(n):
+        height = h_list[j]
+        for k in range(3):
+            if not k:
+                whiteA += lengths[(k-j)%3]*height
+            elif k == 1:
+                yellowA += lengths[(k-j)%3]*height
+            else:
+                redA += lengths[(k-j)%3]*height        
+    return (whiteA,yellowA,redA)
+
+##############OR##############
+
+def calculate_areas(w_list,h_list):
+    w_lens = [0,0,0]
+    h_lens = [0,0,0]
+    length = len(w_list)
+    for i in range(length): #note that len(w_list) == len(h_list)
+        w_lens[i%3] += w_list[i]
+        h_lens[i%3] += h_list[i]
+    whiteA = w_lens[0] * h_lens[0] + w_lens[1]*h_lens[2] + w_lens[2]*h_lens[1]
+    yellowA = w_lens[0] * h_lens[1] + w_lens[1]*h_lens[0] + w_lens[2]*h_lens[2]
+    redA = w_lens[0] * h_lens[2] + w_lens[2]*h_lens[0] + w_lens[1]*h_lens[1]
+    return (whiteA,yellowA,redA)
